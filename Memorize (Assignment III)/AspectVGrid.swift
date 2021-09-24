@@ -2,7 +2,7 @@
 //  AspectVGrid.swift
 //  Memorize (Assignment III)
 //
-//  Created by Carmen Morado on 9/15/21.
+//  Created by Carmen Morado on 9/19/21.
 //
 
 import SwiftUI
@@ -43,7 +43,7 @@ struct AspectVGrid<Item, ItemView>: View where ItemView: View, Item: Identifiabl
         var rowCount = itemCount
         repeat {
             let itemWidth = size.width / CGFloat(columnCount)
-            let itemHeight = itemWidth / itemAspectRatio
+            let itemHeight = itemWidth / aspectRatio
             if CGFloat(rowCount) * itemHeight < size.height {
                 break
             }

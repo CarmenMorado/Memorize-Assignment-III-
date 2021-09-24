@@ -2,30 +2,50 @@
 //  ViewModel.swift
 //  Memorize (Assignment III)
 //
-//  Created by Carmen Morado on 9/15/21.
+//  Created by Carmen Morado on 9/19/21.
 //
 
 import SwiftUI
 
 class ViewModel: ObservableObject {
-    typealias Card = Model<String>.Card
+    @Published var model: Model
     
-    private static let emojis = ["🚗","🚌","🚑","🚜","🛴","🚲","🚔","🛺","🚘","🚃","🚄","🚠","🚅","✈️","🚀","🛸","🚁","🛶","🚤","🚢","🛳","🚓","🚛","🛵"]
-    
-    private static func createMemoryGame() -> Model<String> {
-        Model<String>(numberOfPairsOfCards: 6)  { pairIndex in
-            emojis[pairIndex]
-        }
+    init() {
+        self.model = Model()
     }
     
-    @Published private var model = createMemoryGame()
+   // private static let emojis = ["🚗","🚌","🚑","🚜","🛴","🚲","🚔","🛺","🚘","🚃","🚄","🚠","🚅","✈️","🚀","🛸","🚁","🛶","🚤","🚢","🛳","🚓","🚛","🛵"]
     
-    var cards: Array<Card> {
+//    private static func createMemoryGame() -> Model<String> {
+//        Model<String>(numberOfPairsOfCards: 6)  { pairIndex in
+//            emojis[pairIndex]
+//        }
+//    }
+    
+//    @Published private var model = createMemoryGame()
+    
+    var cards: [Card] {
         return model.cards
     }
-    
-    func choose(_ card: Card) {
-        model.choose(card)
+
+    var cardsToShow: [Card] {
+        Array(self.cards.filter { !$0.isHidden }.prefix(self.model.numberOfCardsToShow))
     }
+    
+    func newGame() {
+        model.newGame()
+    }
+    
+    func chose(card: Card) {
+        model.chose(card: card)
+    }
+    
+  //  var cards: Array<Card> {
+  //      return model.cards
+  //  }
+    
+  //  func choose(_ card: Card) {
+  //      model.choose(card)
+  //  }
 }
 
