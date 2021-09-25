@@ -12,14 +12,15 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-             HStack {
-                 Spacer()
-                 NewGameButton {
-                     withAnimation {
-                         self.game.newGame()
-                     }
-                 }
-             }
+                    HStack {
+                        ShowHintButton(viewModel: game)
+                        Spacer()
+                        NewGameButton {
+                            withAnimation {
+                                self.game.newGame()
+                            }
+                        }
+                    }
         }
         AspectVGrid(items: game.cardsToShow, aspectRatio: 2/3) { card in
          //   if card.isMatched && !card.isFaceUp {
@@ -59,6 +60,35 @@ struct NewGameButton: View {
         }
     }
 }
+    
+struct ShowHintButton: View {
+    @ObservedObject var viewModel: ViewModel
+    @State var isAlertVisible: Bool = false
+
+    var body: some View {
+        Button(action: {
+            withAnimation {
+                self.isAlertVisible = !self.viewModel.showHint()
+            }
+        }, label: {
+            Text("Hint")
+        })
+            .padding()
+            .alert(isPresented: $isAlertVisible) {
+                Alert(
+                    title: Text("No sets available"),
+                    message: Text("Do you want to deal more cards"),
+                    primaryButton: .default(Text("Yes")) {
+                        withAnimation { //self.viewModel.dealMore()
+                            
+                        }
+                    },
+                    secondaryButton: .cancel()
+                )
+        }
+    }
+}
+
 
 //struct CardView: View {
 //   let card: Card

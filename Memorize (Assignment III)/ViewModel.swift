@@ -40,6 +40,10 @@ class ViewModel: ObservableObject {
         model.chose(card: card)
     }
     
+    func showHint() -> Bool {
+        model.showHint()
+    }
+    
   //  var cards: Array<Card> {
   //      return model.cards
   //  }
