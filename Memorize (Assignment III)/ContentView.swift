@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var game: ViewModel
-    
     var body: some View {
         VStack {
                     HStack {
@@ -20,7 +19,8 @@ struct ContentView: View {
                                 self.game.newGame()
                             }
                         }
-                    }
+                        .padding()
+                    }   
         }
         AspectVGrid(items: game.cardsToShow, aspectRatio: 2/3) { card in
          //   if card.isMatched && !card.isFaceUp {
@@ -37,6 +37,18 @@ struct ContentView: View {
         }
             .foregroundColor(/*@START_MENU_TOKEN@*/.red/*@END_MENU_TOKEN@*/)
             .padding(.horizontal)
+        
+       // VStack {
+       //             HStack {
+       //                 DealMoreButton {
+       //                     withAnimation {
+       //                         self.game.newGame()
+       //                     }
+       //                 }
+       //                 .padding()
+       //             }
+       // }
+        
     }
 }
 
@@ -49,6 +61,11 @@ struct NewGameButton: View {
             self.isDialogPresented = true
         }, label: {
             Text("New game")
+                .bold()
+                .frame(width: 150, height: 50)
+                .foregroundColor(.white)
+                .background(LinearGradient(gradient: Gradient(colors: [Color(.systemTeal), Color(.systemPurple)]), startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/))
+                .clipShape(Capsule())
         })
             .padding()
             .alert(isPresented: $isDialogPresented) {
@@ -72,6 +89,11 @@ struct ShowHintButton: View {
             }
         }, label: {
             Text("Hint")
+                .bold()
+                .frame(width: 150, height: 50)
+                .foregroundColor(.white)
+                .background(LinearGradient(gradient: Gradient(colors: [Color(.systemTeal), Color(.systemPurple)]), startPoint: .trailing, endPoint: .leading))
+                .clipShape(Capsule())
         })
             .padding()
             .alert(isPresented: $isAlertVisible) {
@@ -88,6 +110,28 @@ struct ShowHintButton: View {
         }
     }
 }
+
+//struct DealMoreButton: View {
+//    @ObservedObject var viewModel: ViewModel
+//
+//    var body: some View {
+//        Button(action: {
+//            withAnimation {
+//                viewModel.showHint()
+//            }
+//        }, label: {
+//            Text("Hint")
+//               .bold()
+//                .frame(width: 150, height: 50)
+//
+//.foregroundColor(.white)
+//                .background(LinearGradient(gradient: Gradient(colors: [Color(.systemTeal), Color(.systemPurple)]), startPoint: .trailing, endPoint: .leading))
+//                .clipShape(Capsule())
+//        })
+//            .padding()
+//
+//        }
+//    }
 
 
 //struct CardView: View {

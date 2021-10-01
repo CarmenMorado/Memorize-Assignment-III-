@@ -6,10 +6,9 @@
 //
 
 import Foundation
-
 struct Model//<CardContent> where CardContent: Equatable
 {
-    static private let defaultNumberOfCardsToShow = 81
+    static private let defaultNumberOfCardsToShow = 12
     
     private(set) var cards: [Card]
     private(set) var numberOfCardsToShow = defaultNumberOfCardsToShow
@@ -18,6 +17,8 @@ struct Model//<CardContent> where CardContent: Equatable
     init() {
         selectedIndices = [Int]()
         cards = [Card]()
+        
+        newGame()
     }
     
     mutating func newGame() {
@@ -151,8 +152,11 @@ struct Model//<CardContent> where CardContent: Equatable
 
            return false
        }
-
+    
+    mutating func dealThreeMoreCards() {
+        numberOfCardsToShow += 3
     }
+}
 
 
     
