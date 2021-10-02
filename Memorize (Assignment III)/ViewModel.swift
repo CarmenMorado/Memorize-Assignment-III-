@@ -44,6 +44,10 @@ class ViewModel: ObservableObject {
         model.showHint()
     }
     
+    func dealThreeMoreCards() {
+        model.dealThreeMoreCards()
+    }
+    
   //  var cards: Array<Card> {
   //      return model.cards
   //  }

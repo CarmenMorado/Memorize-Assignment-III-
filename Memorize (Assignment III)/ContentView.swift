@@ -38,16 +38,11 @@ struct ContentView: View {
             .foregroundColor(/*@START_MENU_TOKEN@*/.red/*@END_MENU_TOKEN@*/)
             .padding(.horizontal)
         
-       // VStack {
-       //             HStack {
-       //                 DealMoreButton {
-       //                     withAnimation {
-       //                         self.game.newGame()
-       //                     }
-       //                 }
-       //                 .padding()
-       //             }
-       // }
+        VStack {
+                    HStack {
+                        DealMoreButton(viewModel: game)
+                    }
+        }
         
     }
 }
@@ -111,27 +106,24 @@ struct ShowHintButton: View {
     }
 }
 
-//struct DealMoreButton: View {
-//    @ObservedObject var viewModel: ViewModel
-//
-//    var body: some View {
-//        Button(action: {
-//            withAnimation {
-//                viewModel.showHint()
-//            }
-//        }, label: {
-//            Text("Hint")
-//               .bold()
-//                .frame(width: 150, height: 50)
-//
-//.foregroundColor(.white)
-//                .background(LinearGradient(gradient: Gradient(colors: [Color(.systemTeal), Color(.systemPurple)]), startPoint: .trailing, endPoint: .leading))
-//                .clipShape(Capsule())
-//        })
-//            .padding()
-//
-//        }
-//    }
+struct DealMoreButton: View {
+    @ObservedObject var viewModel: ViewModel
+
+    var body: some View {
+        Button(action: {      withAnimation {
+            self.viewModel.dealThreeMoreCards()
+        }}
+               , label: {
+            Text("Hint")
+                .bold()
+                .frame(width: 150, height: 50)
+                .foregroundColor(.white)
+                .background(LinearGradient(gradient: Gradient(colors: [Color(.systemTeal), Color(.systemPurple)]), startPoint: .trailing, endPoint: .leading))
+                .clipShape(Capsule())
+        })
+            .padding()
+    }
+}
 
 
 //struct CardView: View {

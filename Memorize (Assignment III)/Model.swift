@@ -42,14 +42,14 @@ struct Model//<CardContent> where CardContent: Equatable
     }
     
     mutating func chose(card: Card) {
-            if let index = cards.firstIndex(where: { $0 == card }), cards[index].isMatched != true {
+            if let index = cards.firstIndex(where: { $0 == card }), cards[index].isMatched != true{
                 if selectedIndices.count > 2 {
                     deselectAllCards()
                     reduceNumberOfVisibleCards()
                 }
 
                 cards[index].isSelected = !cards[index].isSelected
-                if cards[index].isSelected {
+                if cards[index].isSelected  {
                     selectedIndices.append(index)
 
                     if areThreeCardsSelected {
@@ -154,8 +154,17 @@ struct Model//<CardContent> where CardContent: Equatable
        }
     
     mutating func dealThreeMoreCards() {
-        numberOfCardsToShow += 3
+        if areThreeCardsSelected, areSelectedCardsASet {
+            markSelectedCardsAsMatched()
+            reduceNumberOfVisibleCards()
+        } else {
+            if numberOfCardsToShow <= 81 - 3 {
+                self.numberOfCardsToShow += 3
+            }
+        }
+        deselectAllCards()
     }
+    
 }
 
 
