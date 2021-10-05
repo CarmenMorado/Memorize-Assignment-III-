@@ -10,40 +10,32 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var game: ViewModel
     var body: some View {
-        VStack {
-                    HStack {
-                        ShowHintButton(viewModel: game)
-                        Spacer()
-                        NewGameButton {
-                            withAnimation {
-                                self.game.newGame()
-                            }
-                        }
-                        .padding()
-                    }   
-        }
+        VStack{}
+            .padding(50)
+
         AspectVGrid(items: game.cardsToShow, aspectRatio: 2/3) { card in
-         //   if card.isMatched && !card.isFaceUp {
-         //       Rectangle().opacity(0)
-        //    }
-            
-        //    else {
                 CardView(card: card)
                     .padding(4)
                     .onTapGesture {
                         game.chose(card: card)
-                }
-       //     }
-        }
-            .foregroundColor(/*@START_MENU_TOKEN@*/.red/*@END_MENU_TOKEN@*/)
+                    }
+            }
             .padding(.horizontal)
         
         VStack {
-                    HStack {
-                        DealMoreButton(viewModel: game)
+            HStack {
+                ShowHintButton(viewModel: game)
+                Spacer()
+                NewGameButton {
+                    withAnimation {
+                        self.game.newGame()
                     }
+                }
+                .padding()
+                
+                DealMoreButton(viewModel: game)
+            }
         }
-        
     }
 }
 
@@ -96,12 +88,12 @@ struct ShowHintButton: View {
                     title: Text("No sets available"),
                     message: Text("Do you want to deal more cards"),
                     primaryButton: .default(Text("Yes")) {
-                        withAnimation { //self.viewModel.dealMore()
+                        withAnimation { self.viewModel.dealThreeMoreCards()
                             
                         }
                     },
                     secondaryButton: .cancel()
-                )
+            )
         }
     }
 }
@@ -110,10 +102,11 @@ struct DealMoreButton: View {
     @ObservedObject var viewModel: ViewModel
 
     var body: some View {
-        Button(action: {      withAnimation {
-            self.viewModel.dealThreeMoreCards()
-        }}
-               , label: {
+        Button(action: {
+                withAnimation {
+                    self.viewModel.dealThreeMoreCards()
+                }
+            }, label: {
             Text("Hint")
                 .bold()
                 .frame(width: 150, height: 50)
@@ -121,46 +114,9 @@ struct DealMoreButton: View {
                 .background(LinearGradient(gradient: Gradient(colors: [Color(.systemTeal), Color(.systemPurple)]), startPoint: .trailing, endPoint: .leading))
                 .clipShape(Capsule())
         })
-            .padding()
+        .padding()
     }
 }
-
-
-//struct CardView: View {
-//   let card: Card
-    
-//    var body: some View {
-//        GeometryReader(content: {geometry in
-//            ZStack {
-//                let shape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
-//                    shape.fill().foregroundColor(.white)
-//                    shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
-//                        .padding(5).opacity(0.5)
-//                    Text(card.content).font(font(in: geometry.size))
-                    
-                
-                //else if card.isMatched {
-                 //   shape.opacity(0)
-                //}
-                
-               // else {
-               //     shape.fill()
-               // }
-//            }
-//        })
- //   }
-    
-//    private func font(in size: CGSize) -> Font {
-//        Font.system(size: min(size.width, size.height) * DrawingConstants.fontScale)
-//    }
-    
-//    private struct DrawingConstants {
-//        static let cornerRadius: CGFloat = 10
-//        static let lineWidth: CGFloat = 3
-//        static let fontScale: CGFloat = 0.7
-//    }
-//}
-
 
 
 
@@ -171,7 +127,6 @@ struct DealMoreButton: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let game = ViewModel()
-        //game.choose(game.cards.first!)
         return ContentView(game: game)
     }
 }

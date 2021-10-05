@@ -14,16 +14,6 @@ class ViewModel: ObservableObject {
         self.model = Model()
     }
     
-   // private static let emojis = ["🚗","🚌","🚑","🚜","🛴","🚲","🚔","🛺","🚘","🚃","🚄","🚠","🚅","✈️","🚀","🛸","🚁","🛶","🚤","🚢","🛳","🚓","🚛","🛵"]
-    
-//    private static func createMemoryGame() -> Model<String> {
-//        Model<String>(numberOfPairsOfCards: 6)  { pairIndex in
-//            emojis[pairIndex]
-//        }
-//    }
-    
-//    @Published private var model = createMemoryGame()
-    
     var cards: [Card] {
         return model.cards
     }
@@ -48,12 +38,5 @@ class ViewModel: ObservableObject {
         model.dealThreeMoreCards()
     }
     
-  //  var cards: Array<Card> {
-  //      return model.cards
-  //  }
-    
-  //  func choose(_ card: Card) {
-  //      model.choose(card)
-  //  }
 }
 
